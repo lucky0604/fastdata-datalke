@@ -1,0 +1,44 @@
+{
+  "job": {
+    "setting": {
+      "speed": {
+        "channel": 3
+      },
+      "errorLimit": {
+        "record": 0,
+        "percentage": 0.02
+      }
+    },
+    "content": [
+      {
+        "reader": {
+          "name": "mysqlreader",
+          "parameter": {
+            "username": "labelhub_user",
+            "password": "",
+            "column": [
+              "id",
+              "name"
+            ],
+            "connection": [
+              {
+                "table": [
+                  "user"
+                ],
+                "jdbcUrl": [
+                  ""
+                ]
+              }
+            ]
+          }
+        },
+        "writer": {
+          "name": "streamwriter",
+          "parameter": {
+            "print":true
+          }
+        }
+      }
+    ]
+  }
+}

@@ -22,7 +22,7 @@ object Test extends App{
   def testHDFS() = {
     val conf = new Configuration()
     //conf.set("fs.defaultFS", "hdfs://quickstart.cloudera:8020")
-    conf.set("fs.defaultFS", "hdfs://hadoop01:9000")
+    conf.set("fs.defaultFS", "hdfs://localhost:9000")
     val fs= FileSystem.get(conf)
     val output = fs.create(new Path("/input/file2.txt"))
     val writer = new PrintWriter(output)
@@ -38,15 +38,26 @@ object Test extends App{
   }
 
   def testSpark() = {
-    val conf = new SparkConf().setMaster("spark://172.17.0.2:7077")
-      .setJars(List("D:\\Ubuntu\\code\\Work\\labelhub-datalake\\out\\artifacts\\labelhub_datalake_jar\\labelhub-datalake.jar"))
+    val conf = new SparkConf().setMaster("spark://localhost:7077")
+      //.setJars(List("D:\\Ubuntu\\code\\Work\\labelhub-datalake\\out\\artifacts\\labelhub_datalake_jar\\labelhub-datalake.jar"))
       .setAppName("test spark")
-      .setIfMissing("spark.driver.host", "192.168.31.132")  // docker中的container的ip
+      //.setIfMissing("spark.driver.host", "192.168.31.132")  // docker中的container的ip
     val sc = new SparkContext(conf)
-    val textFile = sc.textFile("hdfs://172.17.0.2:9000/input/file1.txt")
+    val textFile = sc.textFile("hdfs://localhost:9000/input/file2.txt")
     println(textFile.count())
   }
+
+  def testSparkHive() = {
+    val spark = SparkSession.builder().appName("Test Spark Hive")
+      .master("spark://localhost:7077")
+      .config("hadoop.home.dir", "/user/hive/warehouse")
+      .enableHiveSupport()
+      .getOrCreate()
+    spark.sql("use dataforge;")
+    spark.sql("select * from duser limit 10;").show()
+  }
   // testHDFS()
-  testSpark()
+  // testSpark()
+  testSparkHive()
 
 }

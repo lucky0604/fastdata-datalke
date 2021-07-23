@@ -1,0 +1,85 @@
+{
+  "job": {
+    "setting": {
+      "speed": {
+        "channel": 3
+      },
+      "errorLimit": {
+        "record": 0,
+        "percentage": 0.02
+      }
+    },
+    "content": [
+      {
+        "reader": {
+          "name": "mysqlreader",
+          "parameter": {
+            "username": "labelhub_user",
+            "password": "",
+            "column": [
+              "id",
+              "name",
+              "phone",
+              "email",
+              "created_at",
+              "status",
+              "is_delete"
+            ],
+            "connection": [
+              {
+                "table": [
+                  "user"
+                ],
+                "jdbcUrl": [
+                  ""
+                ]
+              }
+            ]
+          }
+        },
+        "writer": {
+          "name": "hdfswriter",
+          "parameter": {
+            "defaultFS": "hdfs://localhost:9000",
+            "fileType": "orc",
+            "path": "/user/hive/warehouse/dataforge.db/duser",
+            "fileName": "duser",
+            "column": [
+              {
+                "name": "id",
+                "type": "INT"
+              },
+              {
+                "name": "name",
+                "type": "STRING"
+              },
+              {
+                "name": "phone",
+                "type": "STRING"
+              },
+              {
+                "name": "email",
+                "type": "STRING"
+              },
+              {
+                "name": "created_at",
+                "type": "STRING"
+              },
+              {
+                "name": "status",
+                "type": "STRING"
+              },
+              {
+                "name": "is_delete",
+                "type": "STRING"
+              }
+            ],
+            "writeMode": "append",
+            "fieldDelimiter": "\t",
+            "compress":"NONE"
+          }
+        }
+      }
+    ]
+  }
+}

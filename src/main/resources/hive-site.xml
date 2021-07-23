@@ -140,12 +140,12 @@
   </property>
   <property>
     <name>hive.exec.local.scratchdir</name>
-    <value>/home/hive/tmp/root</value>
+    <value>/Users/lucky/Documents/code/hive/temp/root</value>
     <description>Local scratch space for Hive jobs</description>
   </property>
   <property>
     <name>hive.downloaded.resources.dir</name>
-    <value>/home/hive/tmp/${hive.session.id}_resources</value>
+    <value>/Users/lucky/Documents/code/hive/temp/${hive.session.id}_resources</value>
     <description>Temporary local directory for added resources in the remote file system.</description>
   </property>
   <property>
@@ -449,7 +449,7 @@
   </property>
   <property>
     <name>hive.metastore.warehouse.dir</name>
-    <value>hdfs://hadoop01/user/hive/warehouse</value>
+    <value>/user/hive/warehouse</value>
     <description>location of default database for the warehouse</description>
   </property>
   <property>
@@ -581,7 +581,7 @@
   </property>
   <property>
     <name>javax.jdo.option.ConnectionURL</name>
-    <value>jdbc:mysql://hadoop01:3306/hive?createDatabaseIfNotExist=true&amp;useSSL=false&amp;characterEncoding=UTF-8</value>
+    <value>jdbc:mysql://localhost:3306/hive?createDatabaseIfNotExist=true&amp;useSSL=false&amp;characterEncoding=UTF-8</value>
     <description>
       JDBC connect string for a JDBC metastore.
       To use SSL to encrypt/authenticate the connection, provide database-specific SSL flag in the connection URL.
@@ -1843,7 +1843,7 @@
   </property>
   <property>
     <name>hive.querylog.location</name>
-    <value>/home/hive/tmp/root</value>
+    <value>/Users/lucky/Documents/code/hive/temp/root</value>
     <description>Location of Hive run time structured log file</description>
   </property>
   <property>
@@ -4401,7 +4401,7 @@
   </property>
   <property>
     <name>hive.server2.logging.operation.log.location</name>
-    <value>/home/hive/tmp/root/operation_logs</value>
+    <value>/Users/lucky/Documents/code/hive/temp/root/operation_logs</value>
     <description>Top level directory where operation logs are stored if logging functionality is enabled</description>
   </property>
   <property>
