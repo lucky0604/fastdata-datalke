@@ -36,3 +36,4 @@ buildNumber.properties
 
 .idea
 /metastore_db
+config.properties

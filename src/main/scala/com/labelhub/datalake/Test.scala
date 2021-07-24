@@ -2,10 +2,13 @@ package com.labelhub.datalake
 
 import org.apache.hadoop.conf.Configuration
 import org.apache.hadoop.fs.{FileSystem, Path}
-import org.apache.spark.sql.SparkSession
+
+import org.apache.spark.sql.{DataFrame, SparkSession}
 import org.apache.spark.{SparkConf, SparkContext}
 
-import java.io.PrintWriter
+import java.io.{FileInputStream, PrintWriter}
+import java.util.Properties
+import scala.io.Source
 
 /**
  * @Author: lucky
@@ -54,10 +57,23 @@ object Test extends App{
       .enableHiveSupport()
       .getOrCreate()
     spark.sql("use dataforge;")
-    spark.sql("select * from duser limit 10;").show()
+    spark.sql("create table dlabel_test;")
+    val df: DataFrame = spark.sql("select * from dlabel_test;")
+
+
+    spark.sql("select * from dlabel_test;")
+    df.show()
+  }
+
+  def testReadMysql(): Unit = {
+    val path = Thread.currentThread().getContextClassLoader.getResource("config.properties").getPath
+    val properties = new Properties()
+    properties.load(new FileInputStream(path))
+    println(properties.get("MYSQL_HOST"))
   }
   // testHDFS()
   // testSpark()
-  testSparkHive()
+  // testSparkHive()
+  testReadMysql()
 
 }
