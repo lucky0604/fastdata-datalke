@@ -57,11 +57,8 @@ object Test extends App{
       .enableHiveSupport()
       .getOrCreate()
     spark.sql("use dataforge;")
-    spark.sql("create table dlabel_test;")
-    val df: DataFrame = spark.sql("select * from dlabel_test;")
+    val df: DataFrame = spark.sql("select * from duser;")
 
-
-    spark.sql("select * from dlabel_test;")
     df.show()
   }
 
@@ -73,7 +70,7 @@ object Test extends App{
   }
   // testHDFS()
   // testSpark()
-  // testSparkHive()
-  testReadMysql()
+  testSparkHive()
+  // testReadMysql()
 
 }

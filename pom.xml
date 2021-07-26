@@ -53,7 +53,7 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.44</version>
+            <version>5.1.48</version>
         </dependency>
     </dependencies>
 
@@ -73,9 +73,9 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <scalaVersion>2.10.6</scalaVersion>
+                    <scalaVersion>2.12.10</scalaVersion>
                     <args>
-                        <arg>-target:jvm-1.5</arg>
+                        <arg>-target:jvm-1.8</arg>
                     </args>
                 </configuration>
             </plugin>
