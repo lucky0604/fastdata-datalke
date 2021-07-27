@@ -7,13 +7,7 @@ import java.util.Properties
 
 
 object ReadMysql extends App {
-  val sqlContext: SparkSession = SparkSession.builder().appName("Test Spark Hive")
-    .master("spark://localhost:7077")
-    .config("spark.sql.broadcastTimeout", "36000")
-    .config("spark.driver.memory", "6g")
-    .config("spark.executor.memory", "6g")
-    .enableHiveSupport()
-    .getOrCreate()
+
 
   def readMysql(sqlContext: SparkSession, tableName: String, proPath: String): DataFrame = {
     val properties = getProperties(proPath)
@@ -35,6 +29,10 @@ object ReadMysql extends App {
       .option("url", properties.getProperty("MYSQL_HOST"))
       .option("user", properties.getProperty("MYSQL_USERNAME"))
       .option("password", properties.getProperty("MYSQL_PASSWORD"))
+      .option("numPartitions", 20)
+      .option("partitionColumn", "crtime")
+      .option("lowerBound", "0")
+      .option("upperBound", "2000")
       .option("dbtable", tableName)
       .load()
   }
@@ -45,13 +43,5 @@ object ReadMysql extends App {
     properties
   }
 
-  val proPath = Thread.currentThread().getContextClassLoader.getResource("config.properties").getPath
-  /**
-  val df: DataFrame = readMysql(sqlContext, "user", proPath)
-  df.select(
-    "name"
-  ).limit(10).show(false)
-  */
-  val df: DataFrame = readMysqlTable(sqlContext, "product_record_detail", s"detail is not null and detail != ''", proPath)
-  df.select("detail").show(10)
+
 }
