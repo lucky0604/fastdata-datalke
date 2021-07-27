@@ -73,7 +73,7 @@ object Test extends App{
   }
   // testHDFS()
   // testSpark()
-  // testSparkHive()
-  testReadMysql()
+  testSparkHive()
+  // testReadMysql()
 
 }
