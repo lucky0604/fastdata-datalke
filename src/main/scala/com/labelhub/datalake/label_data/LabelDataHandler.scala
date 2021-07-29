@@ -35,19 +35,21 @@ object LabelDataHandler{
       val svgArr: ArrayNode = mapper.valueToTree(detail.get("svgArr"))
       if (svgArr.size() > 0) {
         var data = Array((1, 10, 10, "blue", "test", true, true, 1, "testuuid", "test tool", 1, "2021-02-02 18:29:09", 100, 100))
+        val arr = Array(svgArr)
 
+        /*
         svgArr.forEach(svgItem => {
-
+          println(svgItem)
         })
+         */
 
+        // val df: DataFrame = sqlContext.createDataFrame(data).toDF("id", "xmin", "ymin", "color", "name", "isClosed", "isShow", "labelIndex", "uuid", "tool", "secondaryLabelId", "created_at", "width", "height")
 
-        val df: DataFrame = sqlContext.createDataFrame(data).toDF("id", "xmin", "ymin", "color", "name", "isClosed", "isShow", "labelIndex", "uuid", "tool", "secondaryLabelId", "created_at", "width", "height")
-
-        df.createOrReplaceTempView("tmpv")
-        sqlContext.sql("use dataforge;")
+        // df.createOrReplaceTempView("tmpv")
+        // sqlContext.sql("use dataforge;")
         //sqlContext.sql("select * from tmpv").show()
         //sqlContext.sql("insert into table d_label_detail select * from tmpv")
-        sqlContext.sql("select * from d_label_detail").show()
+        // sqlContext.sql("select * from d_label_detail").show()
       }
     })
   }
