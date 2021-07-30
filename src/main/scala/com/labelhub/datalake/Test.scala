@@ -53,7 +53,6 @@ object Test extends App{
   def testSparkHive() = {
     val spark = SparkSession.builder().appName("Test Spark Hive")
       .master("spark://localhost:7077")
-      .config("hadoop.home.dir", "/user/hive/warehouse")
       .enableHiveSupport()
       .getOrCreate()
     spark.sql("use dataforge;")
