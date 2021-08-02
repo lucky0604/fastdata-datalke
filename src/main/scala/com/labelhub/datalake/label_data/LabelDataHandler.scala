@@ -307,12 +307,14 @@ object LabelDataHandler{
             val secondaryLabelId = 0
             val labelIndex = 1
             val tool = item.get("tool").asText()
-            val created_at = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(rootitem.get(7).asInstanceOf[Integer])
+            val created_at = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(rootitem.get(7).asInstanceOf[Integer].toLong * 1000))
+            println(created_at)
             arr.append(DLabelDetail(count, xmin, ymin, color, name, isClosed, isShow, labelIndex, uuid, tool, secondaryLabelId, created_at, width, height))
           }
         })
       }
     })
+
     val insertData: DataFrame = sqlContext.createDataFrame(arr).toDF("id", "xmin", "ymin", "color", "name", "isClosed", "isShow", "labelIndex", "uuid", "tool", "secondaryLabelId", "created_at", "width", "height")
     insertData.createOrReplaceTempView("tmpv")
     sqlContext.sql("use dataforge;")
