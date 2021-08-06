@@ -17,12 +17,17 @@ object ReadHDFSToHive extends App {
   mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
 
   // val files = sparkSession.read.csv("hdfs://localhost:9000/user/hive/warehouse/csv/*.csv")
-  val files = sparkSession.read.format("CSV").option("header", "true").option("delimiter", ",").load("hdfs://localhost:9000/user/hive/warehouse/csv/*.csv")
+  val files = sparkSession.read.format("CSV")
+    .option("header", "true")
+    .option("inferSchema", "false")
+    .option("escape", "\"")
+    .option("quoteAll", "true")
+    .load("hdfs://localhost:9000/user/hive/warehouse/csv/*.csv")
   var arr: ArrayBuffer[DLabelDetail] = ArrayBuffer()
   var count : Integer = 0
   files.collect().map(rootitem => {
     val detail: JsonNode = mapper.readTree(rootitem.get(5).toString)
-    println(detail)
+    println(rootitem + " " + rootitem.get(5))
     /*
     val svgArr: ArrayNode = mapper.valueToTree(detail.get("svgArr"))
     if (svgArr.size() > 0) {
